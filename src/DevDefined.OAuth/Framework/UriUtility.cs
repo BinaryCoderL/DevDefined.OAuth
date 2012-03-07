@@ -51,6 +51,16 @@ namespace DevDefined.OAuth.Framework
 		{
 			var escaped = new StringBuilder(Uri.EscapeDataString(value));
 
+			// Fix for the exception Uri.EscapeDataString throws when the string is longer than 32766
+ 	 		// Microsoft documentation http://msdn.microsoft.com/en-us/library/system.uri.escapedatastring.aspx
+ 	 		var escaped = new StringBuilder();
+ 	 		const int maxChunkSize = 32766;
+ 	 		for (int i = 0; i <= value.Length; i += maxChunkSize)
+	 	 	{
+ 	 			string substring = value.Substring(i, Math.Min(value.Length - i, maxChunkSize));
+ 	 			escaped.Append(Uri.EscapeDataString(substring));
+ 	 		}
+
 			for (int i = 0; i < UriRfc3986CharsToEscape.Length; i++)
 			{
 				escaped.Replace(UriRfc3986CharsToEscape[i], HexEscapedUriRfc3986CharsToEscape[i]);
