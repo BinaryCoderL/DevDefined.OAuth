@@ -48,5 +48,6 @@ namespace DevDefined.OAuth.Consumer
 		IConsumerRequest SignWithoutToken();
 		IConsumerRequest SignWithToken();
 		IConsumerRequest SignWithToken(IToken token);
+		int? Timeout { get; set; }
 	}
 }
