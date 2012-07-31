@@ -356,7 +356,7 @@ namespace DevDefined.OAuth.Framework
 			var allParameters = new List<QueryParameter>();
 
 			//fix for issue: http://groups.google.com/group/oauth/browse_thread/thread/42ef5fecc54a7e9a/a54e92b13888056c?hl=en&lnk=gst&q=Signing+PUT+Request#a54e92b13888056c
-			if (FormEncodedParameters != null && RequestMethod == "POST")
+			if (FormEncodedParameters != null && (RequestMethod == "POST" || RequestMethod == "PUT"))
 				allParameters.AddRange(FormEncodedParameters.ToQueryParametersExcludingTokenSecret());
 
 			if (QueryParameters != null) allParameters.AddRange(QueryParameters.ToQueryParametersExcludingTokenSecret());
